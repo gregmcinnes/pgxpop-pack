@@ -27,6 +27,7 @@ docker run \
 ```
 
 
+## Google Cloud details
 Fasta files Google Storage locations
 ```
 gs://gbsc-gcp-project-mvp-dev-group/gmcinnes/hg38.fa.gz
@@ -38,13 +39,16 @@ Image GCR
 
 ```
 docker tag extract-pack gcr.io/gbsc-gcp-project-mvp-dev/extract-pack
-
 ```
 
 ```
 docker push gcr.io/gbsc-gcp-project-mvp-dev/extract-pack
 ```
 
+extract-pack image is here on GCR
+```
+gcr.io/gbsc-gcp-project-mvp-dev/extract-pack
+```
 
 
 
