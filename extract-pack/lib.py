@@ -296,7 +296,7 @@ def get_output_name(file):
     output_path = os.path.join("output", output_name)
     return output_path
 
-def break_blocks(vcf, bed=None, filter=False, debug=False):
+def break_blocks(vcf, fasta, bed=None, filter=False, debug=False):
     # Write a new vcf by extracting calls from the input vcf and breaking apart reference call blocks
 
     # Get the bed regions
@@ -382,7 +382,8 @@ def break_blocks(vcf, bed=None, filter=False, debug=False):
 
                     #print("i am printing")
                     #record_out[3] = fasta_extract(chr, i, i)
-                    vcf_row_blocked.ref = fasta_extract(chr, i, i)
+                    #vcf_row_blocked.ref = fasta_extract(chr, i, i)
+                    vcf_row_blocked.ref = fasta_extract(chr, i, i, fasta)
                     vcf_row_blocked.alt = "."
                     #record_out[4] = "."
 
@@ -490,7 +491,8 @@ def get_fasta_hg38():
     script_dir = os.path.dirname(os.path.realpath(__file__))
     fasta_name = "hg38.fa.gz"
     #fasta_name = "pgx.grch38.fa"
-    fasta_file = os.path.join(script_dir, "data", fasta_name)
+    #fasta_file = os.path.join(script_dir, "data", fasta_name)
+    fasta_file = os.path.join("/workspace/input", fasta_name)
     return fasta_file
 
 def get_pgx_variants():
@@ -564,13 +566,13 @@ def tabix_index(filename, preset="vcf"):
     print(" ".join(cmd))
     Popen(cmd)
 
-def fasta_extract(chr, start, end, fasta_file=None):
+def fasta_extract(chr, start, end, fasta=None):
 
-    if fasta_file is None:
-        fasta_file = get_fasta_hg38()
+    if fasta is None:
+        fasta = get_fasta_hg38()
 
     region = "%s:%s-%s" % (clean_chr(chr, prefix=True), start, end)
-    response = pysam.faidx(fasta_file, region)
+    response = pysam.faidx(fasta, region)
     sequence = response.split("\n")[1].upper()
     return sequence
 

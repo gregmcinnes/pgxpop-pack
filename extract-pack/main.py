@@ -19,8 +19,9 @@ Then extract the name from the header and use that as the prefix
 
 
 class ExtractPack(object):
-    def __init__(self, file, output=None, bed=None, debug=False):
+    def __init__(self, file, fasta, output=None, bed=None, debug=False):
         self.file = file
+        self.fasta = fasta
         self.bed = bed
         self.output = output
         self.debug = debug
@@ -32,6 +33,11 @@ class ExtractPack(object):
 
         # Get input files.  This will run on all files in ./input_data/
         input_files = self.get_input()
+
+
+        #input_file = os.path.join("input_data", self.file)
+        #input_files = [input_file]
+
         print("Found %s files to process" % len(input_files))
 
         if len(input_files) == 0:
@@ -43,7 +49,7 @@ class ExtractPack(object):
 
         for f in input_files:
             print("Processing %s" % f)
-            break_blocks(f, self.bed, self.debug)
+            break_blocks(f, self.fasta, self.bed, self.debug)
 
     def get_input(self):
         # get all the vcf.gz files in a directory
@@ -80,9 +86,11 @@ def parse_command_line():
 Main
 """
 if __name__ == "__main__":
+    print("Running VCF extraction")
     options = parse_command_line()
     ep = ExtractPack(file=options.vcf,
                      bed=options.bed,
+                     fasta=options.fasta,
                      output=options.output,
                      debug=options.debug)
     ep.run()
