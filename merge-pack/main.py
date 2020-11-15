@@ -14,6 +14,7 @@ from os import listdir
 
 class MergePack(object):
     def __init__(self, debug=False):
+        #self.fasta = fasta
         self.debug = debug
 
     def run(self):
@@ -48,18 +49,18 @@ class MergePack(object):
         merge_file.close()
 
     def get_input(self):
-        # get all the vcf.gz files in a directory
+        # get all the bcf files in a directory
 
         cwd = os.getcwd()
         input_dir = os.path.join(cwd, "input")
         contents = listdir(input_dir)
 
-        vcf_files = []
+        bcf_files = []
         for f in contents:
             if f.endswith("bcf"):
-                vcf_files.append(os.path.join("input", f))
+                bcf_files.append(os.path.join("input", f))
 
-        return vcf_files
+        return bcf_files
 
 
 """
@@ -68,6 +69,7 @@ Parse the command line
 def parse_command_line():
     parser = argparse.ArgumentParser(
         description = 'This is a script I wrote')
+    #parser.add_argument("--fasta", help="Indexed reference genome fasta file.  Index must be in the same location")
     parser.add_argument("-d", "--debug", action='store_true', default=False,
                                 help="Output debugging messages.  May be very verbose.")
     options = parser.parse_args()

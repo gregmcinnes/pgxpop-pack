@@ -35,5 +35,5 @@ def get_fasta_hg38():
     script_dir = os.path.dirname(os.path.realpath(__file__))
     fasta_name = "hg38.fa.gz"
     #fasta_name = "pgx.grch38.fa"
-    fasta_file = os.path.join(script_dir, "data", fasta_name)
+    fasta_file = os.path.join(script_dir, "input", fasta_name)
     return fasta_file
