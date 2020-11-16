@@ -7,7 +7,7 @@ Extract genomics regions from a gVCF and expand the blocks.
 Create the docker environment using [buildpacks](https://cloud.google.com/blog/products/containers-kubernetes/google-cloud-now-supports-buildpacks). 
 This command will create a docker image named 'extract-pack'.
 ```
-pack build --builder gcr.io/buildpacks/builder:v1 extract-pack --env GOOGLE_ENTRYPOINT="python main.py"```
+pack build --builder gcr.io/buildpacks/builder:v1 extract-pack --env GOOGLE_ENTRYPOINT="python main.py"
 ```
 
 ## Run
