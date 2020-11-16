@@ -15,9 +15,9 @@ Used [this](https://hub.docker.com/layers/ljanin/eagle/2.0.4/images/sha256-7fd69
 Copy the input file and index into `/input`.  Specify an output directory mounted to `/output`.  `phaser.sh` will run Eagle2 for each chromosome outputing all files to the output directory.  The output files will be named based on the input file.
 ```
 docker run \
-    -v /Users/gmcinnes/sandbox/docker/phase_test/input/merged_pgx.bcf:/input/merged_pgx.bcf \
-    -v /Users/gmcinnes/sandbox/docker/phase_test/input/merged_pgx.bcf.csi:/input/merged_pgx.bcf.csi \
-    -v /Users/gmcinnes/sandbox/docker/phase_test/output/:/output/ \
+    -v /PATH/TO/merged_pgx.bcf:/input/merged_pgx.bcf \
+    -v /PATH/TO/merged_pgx.bcf.csi:/input/merged_pgx.bcf.csi \
+    -v /PATH/TO/output/:/output/ \
     eagle2 \
     sh /phaser.sh /input/merged_pgx.bcf
 ```
@@ -41,21 +41,6 @@ gcr.io/gbsc-gcp-project-mvp-dev/eagle2
 ```
 
 
-
-
-
-
-
-
-
-```commandline
-docker run \
-    -v /Users/gmcinnes/sandbox/docker/phase_test/input/merged_pgx.bcf:/input/merged_pgx.bcf \
-    -v /Users/gmcinnes/sandbox/docker/phase_test/input/merged_pgx.bcf.csi:/input/merged_pgx.bcf.csi \
-    -v /Users/gmcinnes/sandbox/docker/phase_test/output/:/output/ \
-    eagle2 \
-    sh /phaser.sh /input/merged_pgx.bcf
-```
 
 
 

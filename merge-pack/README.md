@@ -16,11 +16,11 @@ The script will automatically check `/workspace/input/` for input data.  The inp
 It will run on all BCFs in the input directory and output all results to the specified output directory.  It's probably easies to mount a bucket with all the BCFs rather than copy each one.
 ```
 docker run \
-    -v /Users/gmcinnes/sandbox/docker/merge_test/input:/workspace/input \
-    -v /Users/gmcinnes/sandbox/docker/hg38.fa.gz:/workspace/input/hg38.fa.gz \
-    -v /Users/gmcinnes/sandbox/docker/hg38.fa.gz.gzi:/workspace/input/hg38.fa.gz.gzi \
-    -v /Users/gmcinnes/sandbox/docker/hg38.fa.gz.gzi:/workspace/input/hg38.fa.gz.gzi \
-    -v /Users/gmcinnes/sandbox/docker/merge_test/output:/workspace/output/ \
+    -v /PATH/TO/input:/workspace/input \
+    -v /PATH/TO/hg38.fa.gz:/workspace/input/hg38.fa.gz \
+    -v /PATH/TO/hg38.fa.gz.gzi:/workspace/input/hg38.fa.gz.gzi \
+    -v /PATH/TO/hg38.fa.gz.gzi:/workspace/input/hg38.fa.gz.gzi \
+    -v /PATH/TO/output:/workspace/output/ \
     merge-pack
 
 ```
