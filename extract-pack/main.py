@@ -81,14 +81,14 @@ Parse the command line
 def parse_command_line():
     parser = argparse.ArgumentParser(
         description = 'This is a script I wrote')
-    parser.add_argument("-v", "--vcf", help="gVCF to process")
+    parser.add_argument("-v", "--vcf", required=True, help="gVCF to process")
     parser.add_argument("-b", "--bed", help="Bed file for subsetting genotypes")
-    parser.add_argument("--fasta", help="Indexed reference genome fasta file.  Index must be in the same location")
-    parser.add_argument("-o", "--output", help="Output bcf file")
+    parser.add_argument("--fasta", required=True, help="Indexed reference genome fasta file.  Index must be in the same location")
+    parser.add_argument("-o", "--output", required=True, help="Output bcf file")
     # (pbilling) Specifying index name because dsub needs to manage 
     #   file paths of all inputs/outputs in order to do delocalize
     #   to Google Cloud Storage
-    parser.add_argument("-i", "--index", help="Output bcf index")
+    parser.add_argument("-i", "--index", required=True, help="Output bcf index")
     parser.add_argument("-d", "--debug", action='store_true', default=False,
                                 help="Output debugging messages.  May be very verbose.")
     options = parser.parse_args()
@@ -101,7 +101,8 @@ Main
 if __name__ == "__main__":
     print("Running VCF extraction")
     options = parse_command_line()
-    ep = ExtractPack(file=options.vcf,
+    ep = ExtractPack(
+                     vcf=options.vcf,
                      bed=options.bed,
                      fasta=options.fasta,
                      output=options.output,
