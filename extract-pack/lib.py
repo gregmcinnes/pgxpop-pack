@@ -296,7 +296,7 @@ def get_output_name(file):
     output_path = os.path.join("output", output_name)
     return output_path
 
-def break_blocks(vcf, fasta, bed=None, filter=False, debug=False):
+def break_blocks(vcf, fasta, output, index, bed=None, filter=False, debug=False):
     # Write a new vcf by extracting calls from the input vcf and breaking apart reference call blocks
 
     # Get the bed regions
@@ -442,8 +442,13 @@ def break_blocks(vcf, fasta, bed=None, filter=False, debug=False):
     # Clean up output
     os.remove(outfilename)
     os.remove(bcf)
-    os.rename(normalized_bcf, bcf)
-    os.rename(normalized_bcf + ".csi", bcf + ".csi")
+    #os.rename(normalized_bcf, bcf)
+    #os.rename(normalized_bcf + ".csi", bcf + ".csi")
+
+    # (pbilling) Delocalization of outputs is controlled by dsub
+    #   so we need to use the paths it generates for all outputs
+    os.rename(normaized_bcf, output)
+    os.rename(normalized_bcf + ".csv", index)
 
 
 def normalize_indels(vcf, output=None):
