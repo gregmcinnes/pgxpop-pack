@@ -10,18 +10,6 @@ This command will create a docker image named 'extract-pack'.
 pack build --builder gcr.io/buildpacks/builder:v1 extract-pack --env GOOGLE_ENTRYPOINT="python main.py"
 ```
 
-## Create the image using Docker
-Run this in the same directory as the Dockerfile to generate a Docker image.
-```
-docker build --tag extract-pack .
-```
-
-## Dsub command for extracting regions
-```
-pgx-extract --vcf ${VCF} --bed ${BED} --fasta ${FASTA_REF} --output ${BCF} --index ${BCF_INDEX}
-```
-
-
 ## Run
 The script will automatically check `/workspace/input/` for input data.  The input VCF, index, fasta, and fasta indices need to be copied into the workspace.  The output directory also needs to be mounted in `/workspace/output`. 
 
@@ -62,6 +50,17 @@ extract-pack image is here on GCR
 gcr.io/gbsc-gcp-project-mvp-dev/extract-pack
 ```
 
+
+## Create the image using Docker
+Run this in the same directory as the Dockerfile to generate a Docker image.
+```
+docker build --tag extract-pack .
+```
+
+## Dsub command for extracting regions
+```
+pgx-extract --vcf ${VCF} --bed ${BED} --fasta ${FASTA_REF} --output ${BCF} --index ${BCF_INDEX}
+```
 
 
 
