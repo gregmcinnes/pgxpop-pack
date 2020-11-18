@@ -108,5 +108,6 @@ if __name__ == "__main__":
                      output=options.output,
                      index=options.index,
                      debug=options.debug)
+    print(f"Options: {options}.")
     ep.run()
 

@@ -308,7 +308,9 @@ def break_blocks(vcf, fasta, output, index, bed=None, filter=False, debug=False)
 
     pgx_variants = get_pgx_variants()
 
-    outfilename = get_output_name(vcf)
+    #outfilename = get_output_name(vcf)
+    outfilename = "tmp.vcf"
+
 
     # Set up the output
     outfile = open(outfilename, "w")
@@ -427,11 +429,16 @@ def break_blocks(vcf, fasta, output, index, bed=None, filter=False, debug=False)
 
     outfile.close()
 
-    bcf = vcf2bcf(outfilename)
+    print("Converting VCF to BCF")
+    bcf = vcf2bcf(vcf = outfilename)
 
-    normalized_bcf = normalize_indels(bcf)
+    print("Normalizing INDELs")
+    normalized_bcf = normalize_indels(
+                                      vcf = bcf, 
+                                      fasta = fasta)
 
     # verify that the number of records is the same between the two
+    print("Validating variant counts")
     vcf_count = count_variants(outfilename)
     norm_count = count_variants(normalized_bcf)
 
@@ -440,23 +447,26 @@ def break_blocks(vcf, fasta, output, index, bed=None, filter=False, debug=False)
         print("Number of records unequal between vcf and normalized bcf.  Something happened.")
 
     # Clean up output
-    os.remove(outfilename)
-    os.remove(bcf)
+    #os.remove(outfilename)
+    #os.remove(bcf)
     #os.rename(normalized_bcf, bcf)
     #os.rename(normalized_bcf + ".csi", bcf + ".csi")
 
     # (pbilling) Delocalization of outputs is controlled by dsub
     #   so we need to use the paths it generates for all outputs
-    os.rename(normaized_bcf, output)
-    os.rename(normalized_bcf + ".csv", index)
+    print("Renaming outputs")
+    os.rename(normalized_bcf, output)
+    os.rename(normalized_bcf + ".csi", index)
 
 
-def normalize_indels(vcf, output=None):
+def normalize_indels(vcf, fasta, output=None):
     if output is None:
         #output = vcf.rstrip(".vcf") + ".norm.vcf"
         output = vcf.rstrip(".bcf") + ".norm.bcf"
 
-    fasta = get_fasta_hg38()
+    # (pbilling) Don't harcode any input path since dsub is going 
+    #   to generate its own paths
+    #fasta = get_fasta_hg38()
     bcftools.norm("-f", fasta, "-c", "s", "-O", "b", "-o", output, vcf, catch_stdout=False)
     index_bcf(output)
     return output
