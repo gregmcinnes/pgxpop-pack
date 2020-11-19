@@ -441,6 +441,7 @@ def break_blocks(vcf, fasta, output, index, bed=None, filter=False, debug=False)
     print("Validating variant counts")
     vcf_count = count_variants(outfilename)
     norm_count = count_variants(normalized_bcf)
+    print(f"Variant counts: {vcf_count}, {norm_count}.")
 
     if vcf_count != norm_count:
         # something bad happened.  Log it
