@@ -56,6 +56,8 @@ gcr.io/gbsc-gcp-project-mvp-dev/extract-pack
 Run this in the same directory as the Dockerfile to generate a Docker image.
 ```
 docker build --tag extract-pack .
+docker tag extract-pack:1.0 gcr.io/gbsc-gcp-project-mvp-dev/pgxpop/extract-pack:1.0
+docker push gcr.io/gbsc-gcp-project-mvp-dev/pgxpop/extract-pack:1.0
 ```
 
 ## Dsub command for extracting regions
